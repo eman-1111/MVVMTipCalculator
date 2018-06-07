@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TipCalculater</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="input_check_amount_hint">Check</string>
+    <string name="input_tip_percentage_hint">Tip Percentage</string>
+
+    <string name="total_output_label">Total</string>
+    <string name="tip_output_label">Tip</string>
+    <string name="check_amount_output_label">Check</string>
+</resources>
