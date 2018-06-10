@@ -7,7 +7,7 @@ import com.wasltec.tipcalculater.model.Calculator
 import com.wasltec.tipcalculater.model.TipCalculation
 
 
-class CalculatorViewModel(val app: Application,val calculator: Calculator = Calculator()) : BaseObservable() {
+class CalculatorViewModel @JvmOverloads constructor( app: Application,val calculator: Calculator = Calculator()) : ObservableViewModel(app){
 
     var inputCheckAmount = ""
     var inputTipPercentage = ""
@@ -23,9 +23,9 @@ class CalculatorViewModel(val app: Application,val calculator: Calculator = Calc
 
     private fun updateOutputs(tc: TipCalculation) {
 
-        outputCheckAmount = app.getString(R.string.dollar_amount ,tc.checkAmount)
-        OutputTipAmount = app.getString(R.string.dollar_amount ,tc.tipAmount)
-        OutputGrandDollarAmount = app.getString(R.string.dollar_amount ,tc.grandTotal)
+        outputCheckAmount = getApplication<Application>().getString(R.string.dollar_amount ,tc.checkAmount)
+        OutputTipAmount = getApplication<Application>().getString(R.string.dollar_amount ,tc.tipAmount)
+        OutputGrandDollarAmount = getApplication<Application>().getString(R.string.dollar_amount ,tc.grandTotal)
     }
 
 

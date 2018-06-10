@@ -34,22 +34,26 @@ class CalculatorViewModelTest {
 
     @Test
     fun testCalculateTip() {
+
         calculatorViewModel.inputCheckAmount = "10.00"
         calculatorViewModel.inputTipPercentage = "15"
 
-        val stub = TipCalculation(checkAmount = 10.00, tipPact = 15, tipAmount = 1.5, grandTotal = 11.50)
+        val stub = TipCalculation(checkAmount = 10.00, tipAmount = 1.5, grandTotal = 11.5)
         `when`(mockCalculator.calculateTip(10.00, 15)).thenReturn(stub)
+        stubResource(10.0, "$10.00")
+        stubResource(1.5, "$1.50")
+        stubResource(11.5, "$11.50")
+
+
         calculatorViewModel.calculateTip()
-
-        stubResource(10.00, "$10.00")
-        stubResource(1.50, "$1.50")
-        stubResource(11.50, "$11.50")
-
 
         assertEquals("$10.00", calculatorViewModel.outputCheckAmount)
         assertEquals("$1.50", calculatorViewModel.OutputTipAmount)
         assertEquals("$11.50", calculatorViewModel.OutputGrandDollarAmount)
+
+
     }
+
 
     @Test
     fun testCalculateTipBadPercentage() {
