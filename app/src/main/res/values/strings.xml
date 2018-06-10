@@ -8,4 +8,8 @@
     <string name="total_output_label">Total</string>
     <string name="tip_output_label">Tip</string>
     <string name="check_amount_output_label">Check</string>
+
+    <string name="dollar_amount">$%1$.02f</string>
+
+
 </resources>
