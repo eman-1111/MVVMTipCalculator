@@ -12,9 +12,12 @@ class CalculatorViewModel @JvmOverloads constructor( app: Application,val calcul
     var inputCheckAmount = ""
     var inputTipPercentage = ""
 
-    var outputCheckAmount = ""
-    var OutputTipAmount = ""
-    var OutputGrandDollarAmount = ""
+    private var lastTipCalculation = TipCalculation()
+
+    val outputCheckAmount get() = getApplication<Application>().getString(R.string.dollar_amount ,lastTipCalculation.checkAmount)
+    val OutputTipAmount get()= getApplication<Application>().getString(R.string.dollar_amount ,lastTipCalculation.tipAmount)
+    val OutputGrandDollarAmount get()= getApplication<Application>().getString(R.string.dollar_amount ,lastTipCalculation.grandTotal)
+    val locationName get() = lastTipCalculation.locationName
 
 
     init {
@@ -22,10 +25,8 @@ class CalculatorViewModel @JvmOverloads constructor( app: Application,val calcul
     }
 
     private fun updateOutputs(tc: TipCalculation) {
-
-        outputCheckAmount = getApplication<Application>().getString(R.string.dollar_amount ,tc.checkAmount)
-        OutputTipAmount = getApplication<Application>().getString(R.string.dollar_amount ,tc.tipAmount)
-        OutputGrandDollarAmount = getApplication<Application>().getString(R.string.dollar_amount ,tc.grandTotal)
+        lastTipCalculation = tc
+        notifyChange()
     }
 
 
@@ -35,7 +36,6 @@ class CalculatorViewModel @JvmOverloads constructor( app: Application,val calcul
 
         if (checkAmount != null && tipPct != null) {
             updateOutputs(calculator.calculateTip(checkAmount, tipPct))
-            clearInputs()
         }
     }
 
@@ -43,5 +43,11 @@ class CalculatorViewModel @JvmOverloads constructor( app: Application,val calcul
         inputCheckAmount = "0.00"
         inputTipPercentage = "0"
         notifyChange()
+    }
+
+    fun saveCurrentTip(name : String){
+        val tipToSave = lastTipCalculation.copy(locationName = name)
+        calculator.saveTipCalculation(tipToSave)
+        updateOutputs(tipToSave)
     }
 }

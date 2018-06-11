@@ -11,11 +11,34 @@ import com.wasltec.tipcalculater.R
 import com.wasltec.tipcalculater.databinding.ActivityMainBinding
 import com.wasltec.tipcalculater.viewmodel.CalculatorViewModel
 
-import kotlinx.android.synthetic.main.activity_main.*
-
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : AppCompatActivity() , SaveDialogFragment.Callback{
     lateinit var binding : ActivityMainBinding
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_tip_calculator, menu)
+        return true
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when(item?.itemId) {
+            R.id.action_save ->{
+                showSavedDialog()
+                true
+            }
+           else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showSavedDialog(){
+        val saveFragment = SaveDialogFragment()
+        saveFragment.show(supportFragmentManager,"nn")
+    }
+    override fun onSaveTip(name: String) {
+        binding.vm?.saveCurrentTip(name)
+        Snackbar.make(binding.root,"Saved $name", Snackbar.LENGTH_SHORT).show()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +50,5 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
 
 }
