@@ -1,0 +1,8 @@
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/recycler_saved_calculations"
+    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+    tools:listitem="@layout/saved_tip_calculation_list_item" />

@@ -32,4 +32,8 @@ class Calculator (val repository: TipCalculationRepository = TipCalculationRepos
     fun loadSavedTioCalculation(): LiveData<List<TipCalculation>>{
         return repository.loadSavedTipCalculations()
     }
+
+    fun loadSavedTipCalculations() : LiveData<List<TipCalculation>> {
+        return repository.loadSavedTipCalculations()
+    }
 }

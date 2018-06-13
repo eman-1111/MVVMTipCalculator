@@ -11,7 +11,8 @@ import com.wasltec.tipcalculater.R
 import com.wasltec.tipcalculater.databinding.ActivityMainBinding
 import com.wasltec.tipcalculater.viewmodel.CalculatorViewModel
 
-class MainActivity : AppCompatActivity() , SaveDialogFragment.Callback{
+class MainActivity : AppCompatActivity() , SaveDialogFragment.Callback , LoadDialogFragment.Callback{
+
     lateinit var binding : ActivityMainBinding
 
 
@@ -27,14 +28,28 @@ class MainActivity : AppCompatActivity() , SaveDialogFragment.Callback{
                 showSavedDialog()
                 true
             }
+            R.id.action_load ->{
+                showLoadDialog()
+                true
+            }
            else -> super.onOptionsItemSelected(item)
         }
     }
 
     private fun showSavedDialog(){
         val saveFragment = SaveDialogFragment()
-        saveFragment.show(supportFragmentManager,"nn")
+        saveFragment.show(supportFragmentManager,"SaveDialog")
     }
+    private fun showLoadDialog(){
+        val loadFragment = LoadDialogFragment()
+        loadFragment.show(supportFragmentManager,"LoadDialog")
+    }
+
+    override fun onTipSelected(name: String) {
+        binding.vm?.loadTipCalculation(name)
+        Snackbar.make(binding.root,"Load $name", Snackbar.LENGTH_SHORT).show()
+    }
+
     override fun onSaveTip(name: String) {
         binding.vm?.saveCurrentTip(name)
         Snackbar.make(binding.root,"Saved $name", Snackbar.LENGTH_SHORT).show()
